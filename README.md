@@ -3,7 +3,7 @@
 Shell script to install a Snodecoin Masternode on a Linux server running Ubuntu 16.04. Use it on your own risk.
 ***
 
-## VPS installation for version **1.1.0**
+## VPS installation for version **2.0.0**
 ```
 wget -N https://raw.githubusercontent.com/snodeco/snodecoin-installer/master/snodecoin-installer.sh
 bash snodecoin-installer.sh
@@ -60,15 +60,31 @@ systemctl is-enabled SND #To check if Snodecoin service is enabled on boot
 ***
 
 ## Masternode update:
-In order to update your Snodecoin Masternode to version 1.1.0, please run the following commands:
+In order to update your Snodecoin Masternode to version 2.0.0, please run the following commands:
 ```
-cd /tmp
-wget -N https://github.com/snodeco/snode-coin/releases/download/v1.1.0/snodecoin-1.1.0-linux64.tar.gz
-tar xvzf snodecoin-1.1.0-linux64.tar.gz --strip 2
+# stop service
 systemctl stop SND
+
+# create backup
+cp -r ~/.snodecoin ~/.snodecoin.bakup
+
+# remove data from old wallet
+rm -rf ~/.snodecoin/*
+
+# copy the wallet and config files back
+cp ~/.snodecoin.bakup/wallet.dat ~/.snodecoin.bakup/snodecoin.conf ~/.snodecoin.bakup/masternode.conf ~/.snodecoin
+
+# download new wallet 
+cd /tmp
+wget -N https://github.com/snodeco/snode-coin/releases/download/2.0.0/snodecoin-2.0.0-linux64.tar.gz
+tar xvzf snodecoin-2.0.0-linux64.tar.gz --strip 2
+chmod +x snodecoind snodecoin-cli
 mv snodecoind snodecoin-cli /usr/local/bin
+
+#start it
 systemctl start SND
-rm snodecoin-1.1.0-linux64.tar.gz
+rm snodecoin-2.0.0-linux64.tar.gz
+
 snodecoin-cli getinfo
 ```
 Open your desktop wallet and start the node from there.
