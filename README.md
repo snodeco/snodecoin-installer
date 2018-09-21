@@ -76,7 +76,7 @@ cp ~/.snodecoin.bakup/wallet.dat ~/.snodecoin.bakup/snodecoin.conf ~/.snodecoin.
 
 # download new wallet 
 cd /tmp
-wget -N https://github.com/snodeco/snode-coin/releases/download/2.0.0/snodecoin-2.0.0-linux64.tar.gz
+wget -N https://github.com/snodeco/snode-coin/releases/download/v2.0.0/snodecoin-2.0.0-linux64.tar.gz
 tar xvzf snodecoin-2.0.0-linux64.tar.gz --strip 2
 chmod +x snodecoind snodecoin-cli
 mv snodecoind snodecoin-cli /usr/local/bin
